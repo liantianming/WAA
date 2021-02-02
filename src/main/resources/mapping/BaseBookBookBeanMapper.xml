@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.video.dao.BookBookDao">
+  <resultMap id="BaseResultMap" type="com.video.bean.BaseBookBookBean">
+    <id column="bk_id" jdbcType="VARCHAR" property="bkId" />
+    <result column="bk_parent_id" jdbcType="VARCHAR" property="bkParentId" />
+    <result column="bk_level" jdbcType="VARCHAR" property="bkLevel" />
+    <result column="bk_order" jdbcType="VARCHAR" property="bkOrder" />
+    <result column="bk_name" jdbcType="VARCHAR" property="bkName" />
+    <result column="bk_item_num" jdbcType="VARCHAR" property="bkItemNum" />
+    <result column="bk_direct_item_num" jdbcType="VARCHAR" property="bkDirectItemNum" />
+    <result column="bk_author" jdbcType="VARCHAR" property="bkAuthor" />
+    <result column="bk_book" jdbcType="VARCHAR" property="bkBook" />
+    <result column="bk_comment" jdbcType="VARCHAR" property="bkComment" />
+    <result column="bk_orgnization" jdbcType="VARCHAR" property="bkOrgnization" />
+    <result column="bk_publisher" jdbcType="VARCHAR" property="bkPublisher" />
+    <result column="bk_version" jdbcType="VARCHAR" property="bkVersion" />
+    <result column="bk_flag" jdbcType="VARCHAR" property="bkFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bk_id, bk_parent_id, bk_level, bk_order, bk_name, bk_item_num, bk_direct_item_num, 
+    bk_author, bk_book, bk_comment, bk_orgnization, bk_publisher, bk_version, bk_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_book
+    where bk_id = #{bkId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from book_book
+    where bk_id = #{bkId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.video.bean.BaseBookBookBean">
+    insert into book_book (bk_id, bk_parent_id, bk_level, 
+      bk_order, bk_name, bk_item_num, 
+      bk_direct_item_num, bk_author, bk_book, 
+      bk_comment, bk_orgnization, bk_publisher, 
+      bk_version, bk_flag)
+    values (#{bkId,jdbcType=VARCHAR}, #{bkParentId,jdbcType=VARCHAR}, #{bkLevel,jdbcType=VARCHAR}, 
+      #{bkOrder,jdbcType=VARCHAR}, #{bkName,jdbcType=VARCHAR}, #{bkItemNum,jdbcType=VARCHAR}, 
+      #{bkDirectItemNum,jdbcType=VARCHAR}, #{bkAuthor,jdbcType=VARCHAR}, #{bkBook,jdbcType=VARCHAR}, 
+      #{bkComment,jdbcType=VARCHAR}, #{bkOrgnization,jdbcType=VARCHAR}, #{bkPublisher,jdbcType=VARCHAR}, 
+      #{bkVersion,jdbcType=VARCHAR}, #{bkFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.video.bean.BaseBookBookBean">
+    insert into book_book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bkId != null">
+        bk_id,
+      </if>
+      <if test="bkParentId != null">
+        bk_parent_id,
+      </if>
+      <if test="bkLevel != null">
+        bk_level,
+      </if>
+      <if test="bkOrder != null">
+        bk_order,
+      </if>
+      <if test="bkName != null">
+        bk_name,
+      </if>
+      <if test="bkItemNum != null">
+        bk_item_num,
+      </if>
+      <if test="bkDirectItemNum != null">
+        bk_direct_item_num,
+      </if>
+      <if test="bkAuthor != null">
+        bk_author,
+      </if>
+      <if test="bkBook != null">
+        bk_book,
+      </if>
+      <if test="bkComment != null">
+        bk_comment,
+      </if>
+      <if test="bkOrgnization != null">
+        bk_orgnization,
+      </if>
+      <if test="bkPublisher != null">
+        bk_publisher,
+      </if>
+      <if test="bkVersion != null">
+        bk_version,
+      </if>
+      <if test="bkFlag != null">
+        bk_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bkId != null">
+        #{bkId,jdbcType=VARCHAR},
+      </if>
+      <if test="bkParentId != null">
+        #{bkParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="bkLevel != null">
+        #{bkLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="bkOrder != null">
+        #{bkOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="bkName != null">
+        #{bkName,jdbcType=VARCHAR},
+      </if>
+      <if test="bkItemNum != null">
+        #{bkItemNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bkDirectItemNum != null">
+        #{bkDirectItemNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bkAuthor != null">
+        #{bkAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bkBook != null">
+        #{bkBook,jdbcType=VARCHAR},
+      </if>
+      <if test="bkComment != null">
+        #{bkComment,jdbcType=VARCHAR},
+      </if>
+      <if test="bkOrgnization != null">
+        #{bkOrgnization,jdbcType=VARCHAR},
+      </if>
+      <if test="bkPublisher != null">
+        #{bkPublisher,jdbcType=VARCHAR},
+      </if>
+      <if test="bkVersion != null">
+        #{bkVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bkFlag != null">
+        #{bkFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.video.bean.BaseBookBookBean">
+    update book_book
+    <set>
+      <if test="bkParentId != null">
+        bk_parent_id = #{bkParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="bkLevel != null">
+        bk_level = #{bkLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="bkOrder != null">
+        bk_order = #{bkOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="bkName != null">
+        bk_name = #{bkName,jdbcType=VARCHAR},
+      </if>
+      <if test="bkItemNum != null">
+        bk_item_num = #{bkItemNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bkDirectItemNum != null">
+        bk_direct_item_num = #{bkDirectItemNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bkAuthor != null">
+        bk_author = #{bkAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bkBook != null">
+        bk_book = #{bkBook,jdbcType=VARCHAR},
+      </if>
+      <if test="bkComment != null">
+        bk_comment = #{bkComment,jdbcType=VARCHAR},
+      </if>
+      <if test="bkOrgnization != null">
+        bk_orgnization = #{bkOrgnization,jdbcType=VARCHAR},
+      </if>
+      <if test="bkPublisher != null">
+        bk_publisher = #{bkPublisher,jdbcType=VARCHAR},
+      </if>
+      <if test="bkVersion != null">
+        bk_version = #{bkVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bkFlag != null">
+        bk_flag = #{bkFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bk_id = #{bkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.video.bean.BaseBookBookBean">
+    update book_book
+    set bk_parent_id = #{bkParentId,jdbcType=VARCHAR},
+      bk_level = #{bkLevel,jdbcType=VARCHAR},
+      bk_order = #{bkOrder,jdbcType=VARCHAR},
+      bk_name = #{bkName,jdbcType=VARCHAR},
+      bk_item_num = #{bkItemNum,jdbcType=VARCHAR},
+      bk_direct_item_num = #{bkDirectItemNum,jdbcType=VARCHAR},
+      bk_author = #{bkAuthor,jdbcType=VARCHAR},
+      bk_book = #{bkBook,jdbcType=VARCHAR},
+      bk_comment = #{bkComment,jdbcType=VARCHAR},
+      bk_orgnization = #{bkOrgnization,jdbcType=VARCHAR},
+      bk_publisher = #{bkPublisher,jdbcType=VARCHAR},
+      bk_version = #{bkVersion,jdbcType=VARCHAR},
+      bk_flag = #{bkFlag,jdbcType=VARCHAR}
+    where bk_id = #{bkId,jdbcType=VARCHAR}
+  </update>
+  <sql id="base_query">
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      <if test="null != bkId">
+         and t.bk_id = #{bkId,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkParentId">
+         and t.bk_parent_id = #{bkParentId,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkLevel">
+         and t.bk_level = #{bkLevel,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkOrder">
+         and t.bk_order = #{bkOrder,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkName">
+         and t.bk_name = #{bkName,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkItemNum">
+         and t.bk_item_num = #{bkItemNum,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkDirectItemNum">
+         and t.bk_direct_item_num = #{bkDirectItemNum,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkAuthor">
+         and t.bk_author = #{bkAuthor,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkBook">
+         and t.bk_book = #{bkBook,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkComment">
+         and t.bk_comment = #{bkComment,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkOrgnization">
+         and t.bk_orgnization = #{bkOrgnization,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkPublisher">
+         and t.bk_publisher = #{bkPublisher,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkVersion">
+         and t.bk_version = #{bkVersion,jdbcType=VARCHAR}
+      </if>
+      <if test="null != bkFlag">
+         and t.bk_flag = #{bkFlag,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </sql>
+  <select id="find" parameterType="com.video.bean.BaseBookBookBean" resultMap="BaseResultMap">
+    select t.* from book_book t
+    <include refid="base_query" />
+  </select>
+  <select id="list" parameterType="com.video.bean.BaseBookBookBean" resultMap="BaseResultMap">
+    select t.* from book_book t
+    <include refid="base_query" />
+  </select>
+  <select id="pageList" parameterType="com.video.bean.BaseBookBookBean" resultMap="BaseResultMap">
+    select t.* from book_book t
+    <include refid="base_query" />
+  </select>
+
+  <select id="bookListByClass" parameterType="com.video.bean.ViewWord" resultMap="BaseResultMap">
+
+    SELECT t.bk_name,t.bk_id FROM book_book t
+    LEFT JOIN book_school b ON t.bk_parent_id = b.bk_parent_id
+    <if test="null != classify">
+      WHERE b.school_classify = #{classify,jdbcType=VARCHAR}
+    </if>
+    ORDER BY t.bk_flag,t.bk_name
+  </select>
+</mapper>

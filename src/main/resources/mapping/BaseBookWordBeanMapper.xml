@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.video.dao.BookWordDao">
+  <resultMap id="BaseResultMap" type="com.video.bean.BaseBookWordBean">
+    <id column="vc_id" jdbcType="VARCHAR" property="vcId" />
+    <result column="vc_vocabulary" jdbcType="VARCHAR" property="vcVocabulary" />
+    <result column="vc_phonetic_uk" jdbcType="VARCHAR" property="vcPhoneticUk" />
+    <result column="vc_phonetic_us" jdbcType="VARCHAR" property="vcPhoneticUs" />
+    <result column="vc_frequency" jdbcType="REAL" property="vcFrequency" />
+    <result column="vc_difficulty" jdbcType="INTEGER" property="vcDifficulty" />
+    <result column="vc_acknowledge_rate" jdbcType="REAL" property="vcAcknowledgeRate" />
+    <result column="word_id" jdbcType="INTEGER" property="wordId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vc_id, vc_vocabulary, vc_phonetic_uk, vc_phonetic_us, vc_frequency, vc_difficulty, 
+    vc_acknowledge_rate, word_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_word
+    where vc_id = #{vcId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from book_word
+    where vc_id = #{vcId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.video.bean.BaseBookWordBean">
+    insert into book_word (vc_id, vc_vocabulary, vc_phonetic_uk, 
+      vc_phonetic_us, vc_frequency, vc_difficulty, 
+      vc_acknowledge_rate, word_id)
+    values (#{vcId,jdbcType=VARCHAR}, #{vcVocabulary,jdbcType=VARCHAR}, #{vcPhoneticUk,jdbcType=VARCHAR}, 
+      #{vcPhoneticUs,jdbcType=VARCHAR}, #{vcFrequency,jdbcType=REAL}, #{vcDifficulty,jdbcType=INTEGER}, 
+      #{vcAcknowledgeRate,jdbcType=REAL}, #{wordId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.video.bean.BaseBookWordBean">
+    insert into book_word
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vcId != null">
+        vc_id,
+      </if>
+      <if test="vcVocabulary != null">
+        vc_vocabulary,
+      </if>
+      <if test="vcPhoneticUk != null">
+        vc_phonetic_uk,
+      </if>
+      <if test="vcPhoneticUs != null">
+        vc_phonetic_us,
+      </if>
+      <if test="vcFrequency != null">
+        vc_frequency,
+      </if>
+      <if test="vcDifficulty != null">
+        vc_difficulty,
+      </if>
+      <if test="vcAcknowledgeRate != null">
+        vc_acknowledge_rate,
+      </if>
+      <if test="wordId != null">
+        word_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vcId != null">
+        #{vcId,jdbcType=VARCHAR},
+      </if>
+      <if test="vcVocabulary != null">
+        #{vcVocabulary,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhoneticUk != null">
+        #{vcPhoneticUk,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhoneticUs != null">
+        #{vcPhoneticUs,jdbcType=VARCHAR},
+      </if>
+      <if test="vcFrequency != null">
+        #{vcFrequency,jdbcType=REAL},
+      </if>
+      <if test="vcDifficulty != null">
+        #{vcDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="vcAcknowledgeRate != null">
+        #{vcAcknowledgeRate,jdbcType=REAL},
+      </if>
+      <if test="wordId != null">
+        #{wordId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.video.bean.BaseBookWordBean">
+    update book_word
+    <set>
+      <if test="vcVocabulary != null">
+        vc_vocabulary = #{vcVocabulary,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhoneticUk != null">
+        vc_phonetic_uk = #{vcPhoneticUk,jdbcType=VARCHAR},
+      </if>
+      <if test="vcPhoneticUs != null">
+        vc_phonetic_us = #{vcPhoneticUs,jdbcType=VARCHAR},
+      </if>
+      <if test="vcFrequency != null">
+        vc_frequency = #{vcFrequency,jdbcType=REAL},
+      </if>
+      <if test="vcDifficulty != null">
+        vc_difficulty = #{vcDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="vcAcknowledgeRate != null">
+        vc_acknowledge_rate = #{vcAcknowledgeRate,jdbcType=REAL},
+      </if>
+      <if test="wordId != null">
+        word_id = #{wordId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where vc_id = #{vcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.video.bean.BaseBookWordBean">
+    update book_word
+    set vc_vocabulary = #{vcVocabulary,jdbcType=VARCHAR},
+      vc_phonetic_uk = #{vcPhoneticUk,jdbcType=VARCHAR},
+      vc_phonetic_us = #{vcPhoneticUs,jdbcType=VARCHAR},
+      vc_frequency = #{vcFrequency,jdbcType=REAL},
+      vc_difficulty = #{vcDifficulty,jdbcType=INTEGER},
+      vc_acknowledge_rate = #{vcAcknowledgeRate,jdbcType=REAL},
+      word_id = #{wordId,jdbcType=INTEGER}
+    where vc_id = #{vcId,jdbcType=VARCHAR}
+  </update>
+  <sql id="base_query">
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      <if test="null != vcId">
+         and t.vc_id = #{vcId,jdbcType=VARCHAR}
+      </if>
+      <if test="null != vcVocabulary">
+         and t.vc_vocabulary = #{vcVocabulary,jdbcType=VARCHAR}
+      </if>
+      <if test="null != vcPhoneticUk">
+         and t.vc_phonetic_uk = #{vcPhoneticUk,jdbcType=VARCHAR}
+      </if>
+      <if test="null != vcPhoneticUs">
+         and t.vc_phonetic_us = #{vcPhoneticUs,jdbcType=VARCHAR}
+      </if>
+      <if test="null != vcFrequency">
+         and t.vc_frequency = #{vcFrequency,jdbcType=REAL}
+      </if>
+      <if test="null != vcDifficulty">
+         and t.vc_difficulty = #{vcDifficulty,jdbcType=INTEGER}
+      </if>
+      <if test="null != vcAcknowledgeRate">
+         and t.vc_acknowledge_rate = #{vcAcknowledgeRate,jdbcType=REAL}
+      </if>
+      <if test="null != wordId">
+         and t.word_id = #{wordId,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </sql>
+  <select id="find" parameterType="com.video.bean.BaseBookWordBean" resultMap="BaseResultMap">
+    select t.* from book_word t
+    <include refid="base_query" />
+  </select>
+  <select id="list" parameterType="com.video.bean.BaseBookWordBean" resultMap="BaseResultMap">
+    select t.* from book_word t
+    <include refid="base_query" />
+  </select>
+  <select id="pageList" parameterType="com.video.bean.BaseBookWordBean" resultMap="BaseResultMap">
+    select t.* from book_word t
+    <include refid="base_query" />
+  </select>
+
+
+  <resultMap id="views" type="com.video.bean.ViewWordDetail">
+    <id column="vc_id" jdbcType="VARCHAR" property="vcId" />
+    <result column="vc_vocabulary" jdbcType="VARCHAR" property="vcVocabulary" />
+    <result column="vc_phonetic_uk" jdbcType="VARCHAR" property="vcPhoneticUk" />
+    <result column="vc_phonetic_us" jdbcType="VARCHAR" property="vcPhoneticUs" />
+    <result column="v" jdbcType="VARCHAR" property="v" />
+    <result column="expre" jdbcType="VARCHAR" property="expre" />
+  </resultMap>
+
+  <select id="wordListBybkId" parameterType="com.video.bean.ViewWord" resultMap="views">
+
+    SELECT t.vc_id,
+        t.vc_vocabulary,
+        t.vc_phonetic_uk,
+        t.vc_phonetic_us,
+        d.v,
+        d.expre
+    FROM book_word t
+    LEFT JOIN book_word_relation b ON t.vc_id = b.bv_voc_id
+    LEFT JOIN book_word2w_relation c ON t.vc_vocabulary = c.a
+    LEFT JOIN book_word_expre d ON c.id = d.word_id
+    <if test="null != bkId">
+      WHERE b.bv_book_id = #{bkId,jdbcType=VARCHAR}
+      <if test="null != unitName">
+        AND b.bv_tag = #{unitName,jdbcType=VARCHAR}
+      </if>
+    </if>
+    AND b.bv_tag = 'Unit 1'
+    ORDER BY b.bv_order
+  </select>
+</mapper>

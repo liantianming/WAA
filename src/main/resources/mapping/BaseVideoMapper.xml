@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.video.daoTest.VideoDao">
+	<resultMap id="BaseResultMap" type="com.video.bean.BaseVideoBean">
+		<id column="v_id" jdbcType="VARCHAR" property="vId" />
+		<result column="v_user_id" jdbcType="VARCHAR" property="vUserId" />
+		<result column="v_orig_path" jdbcType="VARCHAR" property="vOrigPath" />
+		<result column="v_path" jdbcType="VARCHAR" property="vPath" />
+		<result column="v_orig_name" jdbcType="VARCHAR" property="vOrigName" />
+		<result column="v_name" jdbcType="VARCHAR" property="vName" />
+		<result column="v_file_size" jdbcType="VARCHAR" property="vFileSize" />
+		<result column="v_suffix" jdbcType="VARCHAR" property="vSuffix" />
+		<result column="v_is_delete" jdbcType="VARCHAR" property="vIsDelete" />
+		<result column="v_create_date" jdbcType="TIMESTAMP" property="vCreateDate" />
+		<result column="v_update_user_id" jdbcType="VARCHAR" property="vUpdateUserId" />
+		<result column="v_update_date" jdbcType="TIMESTAMP" property="vUpdateDate" />
+		<result column="v_uuid" jdbcType="VARCHAR" property="vUuid" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		v_id, v_user_id, v_orig_path, v_path, v_orig_name, v_name, v_file_size, v_suffix,
+		v_is_delete, v_create_date, v_update_user_id, v_update_date, v_uuid
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from TB_VIDEO
+		where v_id = #{vId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from TB_VIDEO
+		where v_id = #{vId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.video.bean.BaseVideoBean">
+		insert into TB_VIDEO (v_id, v_user_id, v_orig_path,
+		v_path, v_orig_name, v_name,
+		v_file_size, v_suffix, v_is_delete,
+		v_create_date, v_update_user_id, v_update_date,
+		v_uuid)
+		values (#{vId,jdbcType=VARCHAR}, #{vUserId,jdbcType=VARCHAR}, #{vOrigPath,jdbcType=VARCHAR},
+		#{vPath,jdbcType=VARCHAR}, #{vOrigName,jdbcType=VARCHAR}, #{vName,jdbcType=VARCHAR},
+		#{vFileSize,jdbcType=VARCHAR}, #{vSuffix,jdbcType=VARCHAR}, #{vIsDelete,jdbcType=VARCHAR},
+		#{vCreateDate,jdbcType=TIMESTAMP}, #{vUpdateUserId,jdbcType=VARCHAR}, #{vUpdateDate,jdbcType=TIMESTAMP},
+		#{vUuid,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.video.bean.BaseVideoBean">
+		insert into TB_VIDEO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="vId != null">
+				v_id,
+			</if>
+			<if test="vUserId != null">
+				v_user_id,
+			</if>
+			<if test="vOrigPath != null">
+				v_orig_path,
+			</if>
+			<if test="vPath != null">
+				v_path,
+			</if>
+			<if test="vOrigName != null">
+				v_orig_name,
+			</if>
+			<if test="vName != null">
+				v_name,
+			</if>
+			<if test="vFileSize != null">
+				v_file_size,
+			</if>
+			<if test="vSuffix != null">
+				v_suffix,
+			</if>
+			<if test="vIsDelete != null">
+				v_is_delete,
+			</if>
+			<if test="vCreateDate != null">
+				v_create_date,
+			</if>
+			<if test="vUpdateUserId != null">
+				v_update_user_id,
+			</if>
+			<if test="vUpdateDate != null">
+				v_update_date,
+			</if>
+			<if test="vUuid != null">
+				v_uuid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="vId != null">
+				#{vId,jdbcType=VARCHAR},
+			</if>
+			<if test="vUserId != null">
+				#{vUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="vOrigPath != null">
+				#{vOrigPath,jdbcType=VARCHAR},
+			</if>
+			<if test="vPath != null">
+				#{vPath,jdbcType=VARCHAR},
+			</if>
+			<if test="vOrigName != null">
+				#{vOrigName,jdbcType=VARCHAR},
+			</if>
+			<if test="vName != null">
+				#{vName,jdbcType=VARCHAR},
+			</if>
+			<if test="vFileSize != null">
+				#{vFileSize,jdbcType=VARCHAR},
+			</if>
+			<if test="vSuffix != null">
+				#{vSuffix,jdbcType=VARCHAR},
+			</if>
+			<if test="vIsDelete != null">
+				#{vIsDelete,jdbcType=VARCHAR},
+			</if>
+			<if test="vCreateDate != null">
+				#{vCreateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vUpdateUserId != null">
+				#{vUpdateUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="vUpdateDate != null">
+				#{vUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vUuid != null">
+				#{vUuid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.video.bean.BaseVideoBean">
+		update TB_VIDEO
+		<set>
+			<if test="vUserId != null">
+				v_user_id = #{vUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="vOrigPath != null">
+				v_orig_path = #{vOrigPath,jdbcType=VARCHAR},
+			</if>
+			<if test="vPath != null">
+				v_path = #{vPath,jdbcType=VARCHAR},
+			</if>
+			<if test="vOrigName != null">
+				v_orig_name = #{vOrigName,jdbcType=VARCHAR},
+			</if>
+			<if test="vName != null">
+				v_name = #{vName,jdbcType=VARCHAR},
+			</if>
+			<if test="vFileSize != null">
+				v_file_size = #{vFileSize,jdbcType=VARCHAR},
+			</if>
+			<if test="vSuffix != null">
+				v_suffix = #{vSuffix,jdbcType=VARCHAR},
+			</if>
+			<if test="vIsDelete != null">
+				v_is_delete = #{vIsDelete,jdbcType=VARCHAR},
+			</if>
+			<if test="vCreateDate != null">
+				v_create_date = #{vCreateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vUpdateUserId != null">
+				v_update_user_id = #{vUpdateUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="vUpdateDate != null">
+				v_update_date = #{vUpdateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vUuid != null">
+				v_uuid = #{vUuid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where v_id = #{vId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.video.bean.BaseVideoBean">
+		update TB_VIDEO
+		set v_user_id = #{vUserId,jdbcType=VARCHAR},
+		v_orig_path = #{vOrigPath,jdbcType=VARCHAR},
+		v_path = #{vPath,jdbcType=VARCHAR},
+		v_orig_name = #{vOrigName,jdbcType=VARCHAR},
+		v_name = #{vName,jdbcType=VARCHAR},
+		v_file_size = #{vFileSize,jdbcType=VARCHAR},
+		v_suffix = #{vSuffix,jdbcType=VARCHAR},
+		v_is_delete = #{vIsDelete,jdbcType=VARCHAR},
+		v_create_date = #{vCreateDate,jdbcType=TIMESTAMP},
+		v_update_user_id = #{vUpdateUserId,jdbcType=VARCHAR},
+		v_update_date = #{vUpdateDate,jdbcType=TIMESTAMP},
+		v_uuid = #{vUuid,jdbcType=VARCHAR}
+		where v_id = #{vId,jdbcType=VARCHAR}
+	</update>
+	<sql id="base_query">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="null != vId">
+				and t.v_id = #{vId,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vUserId">
+				and t.v_user_id = #{vUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vOrigPath">
+				and t.v_orig_path = #{vOrigPath,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vPath">
+				and t.v_path = #{vPath,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vOrigName">
+				and t.v_orig_name = #{vOrigName,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vName">
+				and t.v_name = #{vName,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vFileSize">
+				and t.v_file_size = #{vFileSize,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vSuffix">
+				and t.v_suffix = #{vSuffix,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vIsDelete">
+				and t.v_is_delete = #{vIsDelete,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vCreateDate">
+				and t.v_create_date = #{vCreateDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="null != vUpdateUserId">
+				and t.v_update_user_id = #{vUpdateUserId,jdbcType=VARCHAR}
+			</if>
+			<if test="null != vUpdateDate">
+				and t.v_update_date = #{vUpdateDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="null != vUuid">
+				and t.v_uuid = #{vUuid,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</sql>
+
+	<sql id="base_query_like">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="null != vOrigName">
+				AND t.v_orig_name like '%' || #{vOrigName  ,jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="null != vCreateDate">
+				and t.v_create_date &gt;= #{vCreateDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="null != vUpdateDate">
+				and t.v_create_date &lt;= #{vUpdateDate,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="find" parameterType="com.video.bean.BaseVideoBean" resultMap="BaseResultMap">
+		select t.* from TB_VIDEO t
+		<include refid="base_query" />
+	</select>
+	<select id="list" parameterType="com.video.bean.BaseVideoBean" resultMap="BaseResultMap">
+		select t.* from TB_VIDEO t
+		<include refid="base_query" />
+	</select>
+	<select id="pageList" parameterType="com.video.bean.BaseVideoBean" resultMap="BaseResultMap">
+		select t.* from TB_VIDEO t
+		<include refid="base_query_like" />
+		order by t.v_create_date desc
+	</select>
+</mapper>
