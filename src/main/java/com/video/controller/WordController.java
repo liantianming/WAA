@@ -1,38 +1,18 @@
 package com.video.controller;
 
-import cn.hutool.core.io.FileTypeUtil;
-import com.github.pagehelper.PageInfo;
 import com.video.bean.*;
-import com.video.dao.BookWordDao;
 import com.video.result.CodeMsg;
-import com.video.result.EasyUIDataGridResult;
-import com.video.result.Page;
 import com.video.result.RResult;
 import com.video.service.*;
-import com.video.util.Video2PictureUtils;
-import com.video.util.VideoUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -48,7 +28,7 @@ public class WordController {
     @Autowired
     private BookWordService bookWordService;
 
-    @RequestMapping(value="/wordList.do",method= RequestMethod.GET)
+    @RequestMapping(value="/wordList.do",method = RequestMethod.GET)
     public ModelAndView wordtList(ModelAndView model,String bkId,String unitName){
         model.addObject("bkId",bkId);
         model.addObject("unitName",unitName);
@@ -56,9 +36,14 @@ public class WordController {
         return model;
     }
 
+    @RequestMapping(value="/login.do",method= RequestMethod.GET)
+    public RResult<Boolean> login(){
+        return RResult.success(true);
+    }
+
     @RequestMapping(value = "/wordList.do",method= RequestMethod.POST)
     @ResponseBody
-    public RResult<List<List<Map<String, Object>>>> wordList(String bkId,String unitName)  {
+    public RResult<List<List<Map<String, Object>>>> wordList(String bkId,String unitName,String word)  {
         ViewWord view = new ViewWord();
         if("" != bkId){
             view.setBkId(bkId);
@@ -67,6 +52,9 @@ public class WordController {
         }
         if("" != unitName){
             view.setUnitName(unitName);
+        }
+        if("" != word){
+            view.setWord(word);
         }
         List<ViewWordDetail> beans = bookWordService.wordListBybkId(view);
         List<Map<String, Object>> muneTree = getMuneTree(beans);
@@ -122,12 +110,15 @@ public class WordController {
 
     @RequestMapping(value = "/unitList.do",method= RequestMethod.POST)
     @ResponseBody
-    public RResult<List<BaseUnitBookBeanBean>> unitList(String bkId)  {
+    public RResult<List<BaseUnitBookBeanBean>> unitList(String bkId,String unitName)  {
         ViewWord view = new ViewWord();
         if("" != bkId){
             view.setBkId(bkId);
         }else{
             return RResult.error(CodeMsg.SUCCESS);
+        }
+        if("" != unitName){
+            view.setUnitName(unitName);
         }
         List<BaseUnitBookBeanBean> beans = unitBookService.unitListBybkId(view);
         return RResult.success(beans);
@@ -142,10 +133,13 @@ public class WordController {
 
     @RequestMapping(value = "/bookList.do",method= RequestMethod.POST)
     @ResponseBody
-    public RResult<List<BaseBookBookBean>> bookList(String classify)  {
+    public RResult<List<BaseBookBookBean>> bookList(String classify,String book)  {
         ViewWord view = new ViewWord();
         if("" != classify){
             view.setClassify(classify);
+        }
+        if("" != book){
+            view.setBookName(book);
         }
         List<BaseBookBookBean> beans = bookBookService.bookListByClass(view);
         return RResult.success(beans);
@@ -166,6 +160,23 @@ public class WordController {
         }
         List<BaseBookSchoolBeanBean> beans = bookSchoolService.groupList(bean);
         return RResult.success(beans);
+    }
+
+
+    @RequestMapping(value="/categoryIndex.do",method = RequestMethod.GET)
+    public ModelAndView categoryIndex(ModelAndView model){
+        model.setViewName("category/index");
+        return model;
+    }
+    @RequestMapping(value="/myIndex.do",method = RequestMethod.GET)
+    public ModelAndView myIndex(ModelAndView model){
+        model.setViewName("my/index");
+        return model;
+    }
+    @RequestMapping(value="/shopcarIndex.do",method = RequestMethod.GET)
+    public ModelAndView shopcarIndex(ModelAndView model){
+        model.setViewName("shopcar/index");
+        return model;
     }
 
 

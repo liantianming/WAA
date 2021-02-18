@@ -7,29 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../layui-v2.5.6/layui/css/layui.css"  media="all">
-    <style type="text/css">
-        .my-img{
-            width: 80px;
-        }
-        .my-row{
-            background-color: #f2f2f2;
-            margin-top: 4px;
-        }
-        .my-acol{
-            margin-left: 20px;
-            color: #01AAED ;
-        }
+    <link href="../../commen/css/base.css" rel="stylesheet" type="text/css">
 
-    </style>
 </head>
 <body>
+
 <div class="layui-container">
     <div class="layui-row">
-        <div class="layui-col-xs3 layui-col-sm3 layui-col-md3" >
-            <input type="text" name="book" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3" >
+            <input type="text" name="unitName" lay-verify="title" autocomplete="off" placeholder="请输入单元" class="layui-input">
         </div>
-        <div class="layui-col-xs9 layui-col-sm9 layui-col-md9">
-            <button type="button" class="layui-btn">确定</button>
+        <div class="layui-col-xs3 layui-col-sm9 layui-col-md9">
+            <button type="button" onclick="getData()" class="layui-btn">确定</button>
         </div>
     </div>
     <div class="layui-row" id="row"></div>
@@ -74,7 +63,8 @@
     function getData(){
         var bookclass =$('input[name="bookclass"]').val();
         var bkId =$('input[name="bkId"]').val();
-        var data = {bookclass:bookclass,bkId:bkId};
+        var unitName =$('input[name="unitName"]').val();
+        var data = {bookclass:bookclass,bkId:bkId,unitName:unitName};
         $.ajax({
             url: pathName+"/unitList.do",
             type : 'POST',

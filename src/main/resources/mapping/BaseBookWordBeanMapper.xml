@@ -194,8 +194,13 @@
       <if test="null != unitName">
         AND b.bv_tag = #{unitName,jdbcType=VARCHAR}
       </if>
+      <if test="null != unitName">
+        AND b.bv_tag = #{unitName,jdbcType=VARCHAR}
+      </if>
+      <if test="null != word">
+        AND t.vc_vocabulary LIKE  concat('%',#{word,jdbcType=VARCHAR},'%')
+      </if>
     </if>
-    AND b.bv_tag = 'Unit 1'
     ORDER BY b.bv_order
   </select>
 </mapper>

@@ -8,24 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../layui-v2.5.6/layui/css/layui.css"  media="all">
+    <link href="../../commen/css/base.css" rel="stylesheet" type="text/css">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-
-    <style type="text/css">
-        .my-img{
-            width: 80px;
-            background: url("../../commen/images/new-sprite.png");
-            text-align: center;
-        }
-        .my-row{
-            background-color: #f2f2f2;
-            margin-top: 4px;
-        }
-        .my-acol{
-            margin-left: 20px;
-            color: #01AAED ;
-        }
-
-    </style>
 </head>
 <body>
 
@@ -33,22 +17,16 @@
 
     <!--查询功能-->
     <div class="layui-row">
-        <div class="layui-col-xs3 layui-col-sm3 layui-col-md3" >
-            <input type="text" name="book" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3" >
+            <input type="text" name="book" lay-verify="title" autocomplete="off" placeholder="请输入书名" class="layui-input">
         </div>
-        <div class="layui-col-xs9 layui-col-sm9 layui-col-md9">
-            <button type="button" class="layui-btn">确定</button>
+        <div class="layui-col-xs3 layui-col-sm9 layui-col-md9">
+            <button type="button" onclick="getData()" class="layui-btn">确定</button>
         </div>
     </div>
 
     <!--列表-->
     <div class="layui-row" id="row">
-        <!--<div class="layui-row my-row">
-            <img class="my-img" src="../../commen/images/new-sprite.png">
-            <div class="layui-inline my-text" >
-                <a href="#" class="my-acol">中学</a>
-            </div>
-        </div>-->
     </div>
 </div>
 <div style="display: none">
@@ -89,9 +67,9 @@
     }
 
     function getData(){
-        var bookclass =$('input[name="bookclass"]').val();
+        var book =$('input[name="book"]').val();
         var classify =$('input[name="classify"]').val();
-        var data = {bookclass:bookclass,classify:classify};
+        var data = {book:book,classify:classify};
         $.ajax({
             url: pathName+"/bookList.do",
             type : 'POST',

@@ -261,7 +261,10 @@
     LEFT JOIN book_school b ON t.bk_parent_id = b.bk_parent_id
     <if test="null != classify">
       WHERE b.school_classify = #{classify,jdbcType=VARCHAR}
+      <if test="null != bookName">
+        AND t.bk_name LIKE  concat('%',#{bookName,jdbcType=VARCHAR},'%')
+      </if>
     </if>
-    ORDER BY t.bk_flag,t.bk_name
+    ORDER BY t.`bk_parent_id`,t.`bk_name`, t.bk_order
   </select>
 </mapper>

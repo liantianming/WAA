@@ -1,6 +1,5 @@
 package com.video.controller;
 
-import cn.hutool.core.io.FileTypeUtil;
 import com.github.pagehelper.PageInfo;
 import com.video.bean.BaseVideoBean;
 import com.video.bean.VideoVo;
@@ -43,7 +42,7 @@ import java.util.List;
 public class VideoController {
     private static Logger logger = LoggerFactory.getLogger(VideoController.class);
 
-    @Value("${suffix_mp4}")
+    /*@Value("${suffix_mp4}")
     private String SUFFIX_MP4;
     @Value("${suffix_jpg}")
     private String SUFFIX_JPG;
@@ -267,9 +266,9 @@ public class VideoController {
         videoBean.setvCreateDate(new Date());
     }
 
-    /**
+    *//**
      * 创建文件目录
-     */
+     *//*
     private void makeDirectory(String dateStr) {
 
         File file=new File(MEDIA_PATH+ORIG_DIRE+dateStr);
@@ -280,10 +279,10 @@ public class VideoController {
         }
     }
 
-    /**
+    *//**
      * @param fileSize
      * @return
-     */
+     *//*
     private static String getSizeStr(long fileSize) {
         long kSize = fileSize / 1024;
         if(kSize < 1024){
@@ -295,11 +294,11 @@ public class VideoController {
         }
         return "";
     }
-    /**
+    *//**
      * 获取文件大小
      * @param filename 文件名
      * @return
-     */
+     *//*
     private static long getFileSize(String filename) {
         File file = new File(filename);
         if (!file.exists() || !file.isFile()) {
@@ -309,12 +308,12 @@ public class VideoController {
         return file.length();
     }
 
-    /**
+    *//**
      * 下载文件函数
      * @param filePath 文件地址
      * @return
      * @throws IOException
-     */
+     *//*
     private ResponseEntity<byte[]> fileDownload(String filePath)throws IOException{
         File file = new File(filePath);
         byte[] body = null;
@@ -327,5 +326,5 @@ public class VideoController {
         HttpStatus statusCode = HttpStatus.OK;
         ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
         return entity;
-    }
+    }*/
 }

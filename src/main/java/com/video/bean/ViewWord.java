@@ -7,6 +7,24 @@ public class ViewWord implements Serializable {
     private String classify;
     private String unitName;
     private String bkId;
+    private String word;
+    private String bookName;
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String booKName) {
+        this.bookName = booKName;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
 
     public String getClassify() {
         return classify;

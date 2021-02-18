@@ -144,6 +144,9 @@
     FROM book_word_relation t
     <if test="null != bkId">
       WHERE t.bv_book_id = #{bkId,jdbcType=VARCHAR}
+      <if test="null != unitName">
+        AND t.bv_tag LIKE concat('%',#{unitName,jdbcType=VARCHAR},'%')
+      </if>
     </if>
     GROUP BY t.bv_tag
 
