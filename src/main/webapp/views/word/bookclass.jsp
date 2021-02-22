@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +10,49 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../layui-v2.5.6/layui/css/layui.css" media="all">
-    <link href="../../commen/css/base.css" rel="stylesheet" type="text/css">
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <script type="text/javascript" charset="utf-8" src="<%=path%>/easyui/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=path%>/commen/js/base.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=path%>/layui-v2.5.6/layui/layui.js"></script>
+    <link rel="stylesheet" media="all" href="<%=path%>/layui-v2.5.6/layui/css/layui.css">
+    <script type="text/javascript" charset="utf-8" src="<%=path%>/views/word/bookclass.js"></script>
+    <style type="text/css">
+        .my-img{
+            width: 80px;
+            background: url("<%=path%>/commen/images/new-sprite.png");
+            text-align: center;
+        }
+        .my-row{
+            background-color: #f2f2f2;
+            margin-top: 4px;
+        }
+        .my-acol{
+            margin-left: 20px;
+            color: #01AAED ;
+        }
+        .layui-container{
+            margin-top: 10px;
+        }
+
+        .sp {
+            background: url("<%=path%>/commen/images/new-sprite.png") no-repeat;
+            vertical-align: middle;
+            overflow: hidden;
+            display: inline-block
+        }
+        .dictvoice {
+            vertical-align: middle;
+            margin: 10px;
+            width: 15px;
+            height: 21px;
+            background-position: -47px -36px
+        }
+        .dictvoice:hover {
+            background-position: -32px -36px
+        }
+        .nv{
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -17,74 +60,21 @@
     <!--查询功能-->
     <div class="layui-row">
         <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-            <input type="text" name="bookclass" lay-verify="title" autocomplete="off" placeholder="请输入分类"
+            <input type="text" name="bookclass" lay-verify="title" autocomplete="off" placeholder="请输入单词"
                    class="layui-input">
         </div>
         <div class="layui-col-xs3 layui-col-sm9 layui-col-md9">
-            <button type="button" onclick="getData()" class="layui-btn">确定</button>
+            <button type="button" onclick="getWord()" class="layui-btn">确定</button>
         </div>
     </div>
-    <div class="layui-row" id="row"></div>
+    <div class="layui-row layui-collapse" id="row"></div>
+
+    <div style="display: none;">
+        <input id="wordId" name="wordId">
+        <div class="audiopalyer"></div>
+    </div>
+
 </div>
-
-
-<script type="text/javascript" src="../../easyui/jquery.min.js"></script>
-<script type="text/javascript" src="../../commen/js/base.js"></script>
-<script src="../../layui-v2.5.6/layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<script>
-    var row = $("#row");
-    var my_row;
-    var my_img;
-    var my_text;
-    var my_acol;
-
-    $(function () {
-        getData();
-        mui('.mui-scroll-wrapper').scroll({
-            deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-        });
-    });
-
-    function initData(rList) {
-        row.html("");
-        for (var i = 0; i < rList.length; i++) {
-            my_row = $('<div class="layui-row my-row"></div>');
-            my_img = $('<img class="my-img" src="../../commen/images/new-sprite.png">');
-            my_text = $('<div class="layui-inline my-text" ></div>');
-            my_acol = $('<div class="my-acol" onclick="doBook(\'' + rList[i].schoolClassify + '\')">' + rList[i].schoolZh + '</div>');
-            my_row.appendTo(row);
-            my_img.appendTo(my_row);
-            my_text.appendTo(my_row);
-            my_acol.appendTo(my_text);
-        }
-    }
-
-    function doBook(classify) {
-        window.location.href = "./bookList.do?classify=" + classify;
-    }
-
-    function getData() {
-        var bookclass = $('input[name="bookclass"]').val();
-        var data = {bookclass: bookclass};
-        $.ajax({
-            url: pathName + "/schoolList.do",
-            type: 'POST',
-            data: data,
-            success: function (result) {
-                if (result.code == '0') {
-                    var rList = result.data;
-                    initData(rList);
-                } else {
-                    alert(result.msg);
-                }
-            },
-            error: function () {
-                alert("失败了。");
-            }
-        });
-    }
-</script>
 
 </body>
 </html>

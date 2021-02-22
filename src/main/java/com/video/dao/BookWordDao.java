@@ -27,4 +27,6 @@ public interface BookWordDao {
     Page<BaseBookWordBean> pageList(BaseBookWordBean record);
 
     List<ViewWordDetail> wordListBybkId(ViewWord view);
+
+    List<ViewWordDetail> getWord(ViewWord view);
 }

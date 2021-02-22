@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE HTML>
 <head>
     <meta charset="utf-8">
@@ -6,8 +9,45 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../layui-v2.5.6/layui/css/layui.css" media="all">
-    <link href="../../commen/css/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<%=path%>/layui-v2.5.6/layui/css/layui.css" media="all">
+    <style type="text/css">
+        .my-img{
+            width: 80px;
+            background: url("<%=path%>/commen/images/new-sprite.png");
+            text-align: center;
+        }
+        .my-row{
+            background-color: #f2f2f2;
+            margin-top: 4px;
+        }
+        .my-acol{
+            margin-left: 20px;
+            color: #01AAED ;
+        }
+        .layui-container{
+            margin-top: 10px;
+        }
+
+        .sp {
+            background: url("<%=path%>/commen/images/new-sprite.png") no-repeat;
+            vertical-align: middle;
+            overflow: hidden;
+            display: inline-block
+        }
+        .dictvoice {
+            vertical-align: middle;
+            margin: 10px;
+            width: 15px;
+            height: 21px;
+            background-position: -47px -36px
+        }
+        .dictvoice:hover {
+            background-position: -32px -36px
+        }
+        .nv{
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
 <div class="layui-container">
@@ -45,12 +85,9 @@
     <input name="unitName" value="${unitName}">
 </div>
 
-<script type="text/javascript" src="../../easyui/jquery.min.js"></script>
-<script type="text/javascript" src="../../commen/js/base.js"></script>
-<script src="../../layui-v2.5.6/layui/layui.js" charset="utf-8"></script>
-<%--<link rel="stylesheet" href="../../dist/css/mui.min.css">
-<script src="../../dist/js/mui.min.js"></script>--%>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script type="text/javascript" src="<%=path%>/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="<%=path%>/commen/js/base.js"></script>
+<script src="<%=path%>/layui-v2.5.6/layui/layui.js" charset="utf-8"></script>
 <script>
     var row = $("#row");
 
@@ -106,7 +143,7 @@
             var phonetic_uk = $('<span class="phonetic">' + list[i].vcPhoneticUk + '</span>');
             var fayin_uk = $('<span class="sp dictvoice" title="真人发音" onclick="audi1(\'' + list[i].vcVocabulary + '\')"></span>');
 
-            var pronounce_us = $('<span class="pronounce">英</span>');
+            var pronounce_us = $('<span class="pronounce">美</span>');
             var phonetic_us = $('<span class="phonetic">' + list[i].vcPhoneticUs + '</span>');
             var fayin_us = $('<span class="sp dictvoice" title="真人发音" onclick="audi2(\'' + list[i].vcVocabulary + '\')"></span>');
 
@@ -139,6 +176,10 @@
             div1.appendTo(content);
             ul1.appendTo(div1);
         }
+
+        layui.use('element', function(){
+            var element = layui.element;
+        });
     }
 
     function doWordDetail(bvTag) {
@@ -152,7 +193,7 @@
         var word = $('input[name="word"]').val();
         var data = {bkId: bkId, unitName: unitName, word: word};
         $.ajax({
-            url: pathName + "/wordList.do",
+            url: "./wordList.do",
             type: 'POST',
             data: data,
             success: function (result) {

@@ -69,4 +69,9 @@ public class BookWordServiceImpl implements BookWordService {
         return bookWordDao.wordListBybkId(view);
     }
 
+    @Override
+    public List<ViewWordDetail> getWord(ViewWord view) {
+        return bookWordDao.getWord(view);
+    }
+
 }

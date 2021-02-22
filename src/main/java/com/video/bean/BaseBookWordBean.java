@@ -19,6 +19,10 @@ public class BaseBookWordBean implements Serializable {
 
     private Integer wordId;
 
+    private String audioUkUuid;
+
+    private String audioUsUuid;
+
     private static final long serialVersionUID = 1L;
 
     public String getVcId() {
@@ -83,5 +87,21 @@ public class BaseBookWordBean implements Serializable {
 
     public void setWordId(Integer wordId) {
         this.wordId = wordId;
+    }
+
+    public String getAudioUkUuid() {
+        return audioUkUuid;
+    }
+
+    public void setAudioUkUuid(String audioUkUuid) {
+        this.audioUkUuid = audioUkUuid == null ? null : audioUkUuid.trim();
+    }
+
+    public String getAudioUsUuid() {
+        return audioUsUuid;
+    }
+
+    public void setAudioUsUuid(String audioUsUuid) {
+        this.audioUsUuid = audioUsUuid == null ? null : audioUsUuid.trim();
     }
 }

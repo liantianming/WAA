@@ -18,11 +18,11 @@
     <result column="bk_flag" jdbcType="VARCHAR" property="bkFlag" />
   </resultMap>
   <sql id="Base_Column_List">
-    bk_id, bk_parent_id, bk_level, bk_order, bk_name, bk_item_num, bk_direct_item_num, 
+    bk_id, bk_parent_id, bk_level, bk_order, bk_name, bk_item_num, bk_direct_item_num,
     bk_author, bk_book, bk_comment, bk_orgnization, bk_publisher, bk_version, bk_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from book_book
     where bk_id = #{bkId,jdbcType=VARCHAR}
@@ -32,15 +32,15 @@
     where bk_id = #{bkId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.video.bean.BaseBookBookBean">
-    insert into book_book (bk_id, bk_parent_id, bk_level, 
-      bk_order, bk_name, bk_item_num, 
-      bk_direct_item_num, bk_author, bk_book, 
-      bk_comment, bk_orgnization, bk_publisher, 
+    insert into book_book (bk_id, bk_parent_id, bk_level,
+      bk_order, bk_name, bk_item_num,
+      bk_direct_item_num, bk_author, bk_book,
+      bk_comment, bk_orgnization, bk_publisher,
       bk_version, bk_flag)
-    values (#{bkId,jdbcType=VARCHAR}, #{bkParentId,jdbcType=VARCHAR}, #{bkLevel,jdbcType=VARCHAR}, 
-      #{bkOrder,jdbcType=VARCHAR}, #{bkName,jdbcType=VARCHAR}, #{bkItemNum,jdbcType=VARCHAR}, 
-      #{bkDirectItemNum,jdbcType=VARCHAR}, #{bkAuthor,jdbcType=VARCHAR}, #{bkBook,jdbcType=VARCHAR}, 
-      #{bkComment,jdbcType=VARCHAR}, #{bkOrgnization,jdbcType=VARCHAR}, #{bkPublisher,jdbcType=VARCHAR}, 
+    values (#{bkId,jdbcType=VARCHAR}, #{bkParentId,jdbcType=VARCHAR}, #{bkLevel,jdbcType=VARCHAR},
+      #{bkOrder,jdbcType=VARCHAR}, #{bkName,jdbcType=VARCHAR}, #{bkItemNum,jdbcType=VARCHAR},
+      #{bkDirectItemNum,jdbcType=VARCHAR}, #{bkAuthor,jdbcType=VARCHAR}, #{bkBook,jdbcType=VARCHAR},
+      #{bkComment,jdbcType=VARCHAR}, #{bkOrgnization,jdbcType=VARCHAR}, #{bkPublisher,jdbcType=VARCHAR},
       #{bkVersion,jdbcType=VARCHAR}, #{bkFlag,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.video.bean.BaseBookBookBean">

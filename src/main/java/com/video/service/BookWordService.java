@@ -28,4 +28,6 @@ public interface BookWordService {
     Page<BaseBookWordBean> pageList(BaseBookWordBean record, Page page);
 
     List<ViewWordDetail> wordListBybkId(ViewWord view);
+
+    List<ViewWordDetail> getWord(ViewWord view);
 }

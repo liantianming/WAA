@@ -10,13 +10,15 @@
     <result column="vc_difficulty" jdbcType="INTEGER" property="vcDifficulty" />
     <result column="vc_acknowledge_rate" jdbcType="REAL" property="vcAcknowledgeRate" />
     <result column="word_id" jdbcType="INTEGER" property="wordId" />
+    <result column="audio_uk_uuid" jdbcType="VARCHAR" property="audioUkUuid" />
+    <result column="audio_us_uuid" jdbcType="VARCHAR" property="audioUsUuid" />
   </resultMap>
   <sql id="Base_Column_List">
     vc_id, vc_vocabulary, vc_phonetic_uk, vc_phonetic_us, vc_frequency, vc_difficulty, 
-    vc_acknowledge_rate, word_id
+    vc_acknowledge_rate, word_id, audio_uk_uuid, audio_us_uuid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from book_word
     where vc_id = #{vcId,jdbcType=VARCHAR}
@@ -26,12 +28,14 @@
     where vc_id = #{vcId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.video.bean.BaseBookWordBean">
-    insert into book_word (vc_id, vc_vocabulary, vc_phonetic_uk, 
-      vc_phonetic_us, vc_frequency, vc_difficulty, 
-      vc_acknowledge_rate, word_id)
-    values (#{vcId,jdbcType=VARCHAR}, #{vcVocabulary,jdbcType=VARCHAR}, #{vcPhoneticUk,jdbcType=VARCHAR}, 
-      #{vcPhoneticUs,jdbcType=VARCHAR}, #{vcFrequency,jdbcType=REAL}, #{vcDifficulty,jdbcType=INTEGER}, 
-      #{vcAcknowledgeRate,jdbcType=REAL}, #{wordId,jdbcType=INTEGER})
+    insert into book_word (vc_id, vc_vocabulary, vc_phonetic_uk,
+    vc_phonetic_us, vc_frequency, vc_difficulty,
+    vc_acknowledge_rate, word_id, audio_uk_uuid,
+    audio_us_uuid)
+    values (#{vcId,jdbcType=VARCHAR}, #{vcVocabulary,jdbcType=VARCHAR}, #{vcPhoneticUk,jdbcType=VARCHAR},
+    #{vcPhoneticUs,jdbcType=VARCHAR}, #{vcFrequency,jdbcType=REAL}, #{vcDifficulty,jdbcType=INTEGER},
+    #{vcAcknowledgeRate,jdbcType=REAL}, #{wordId,jdbcType=INTEGER}, #{audioUkUuid,jdbcType=VARCHAR},
+    #{audioUsUuid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.video.bean.BaseBookWordBean">
     insert into book_word
@@ -60,6 +64,12 @@
       <if test="wordId != null">
         word_id,
       </if>
+      <if test="audioUkUuid != null">
+        audio_uk_uuid,
+      </if>
+      <if test="audioUsUuid != null">
+        audio_us_uuid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="vcId != null">
@@ -85,6 +95,12 @@
       </if>
       <if test="wordId != null">
         #{wordId,jdbcType=INTEGER},
+      </if>
+      <if test="audioUkUuid != null">
+        #{audioUkUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="audioUsUuid != null">
+        #{audioUsUuid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -112,45 +128,59 @@
       <if test="wordId != null">
         word_id = #{wordId,jdbcType=INTEGER},
       </if>
+      <if test="audioUkUuid != null">
+        audio_uk_uuid = #{audioUkUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="audioUsUuid != null">
+        audio_us_uuid = #{audioUsUuid,jdbcType=VARCHAR},
+      </if>
     </set>
     where vc_id = #{vcId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.video.bean.BaseBookWordBean">
     update book_word
     set vc_vocabulary = #{vcVocabulary,jdbcType=VARCHAR},
-      vc_phonetic_uk = #{vcPhoneticUk,jdbcType=VARCHAR},
-      vc_phonetic_us = #{vcPhoneticUs,jdbcType=VARCHAR},
-      vc_frequency = #{vcFrequency,jdbcType=REAL},
-      vc_difficulty = #{vcDifficulty,jdbcType=INTEGER},
-      vc_acknowledge_rate = #{vcAcknowledgeRate,jdbcType=REAL},
-      word_id = #{wordId,jdbcType=INTEGER}
+    vc_phonetic_uk = #{vcPhoneticUk,jdbcType=VARCHAR},
+    vc_phonetic_us = #{vcPhoneticUs,jdbcType=VARCHAR},
+    vc_frequency = #{vcFrequency,jdbcType=REAL},
+    vc_difficulty = #{vcDifficulty,jdbcType=INTEGER},
+    vc_acknowledge_rate = #{vcAcknowledgeRate,jdbcType=REAL},
+    word_id = #{wordId,jdbcType=INTEGER},
+    audio_uk_uuid = #{audioUkUuid,jdbcType=VARCHAR},
+    audio_us_uuid = #{audioUsUuid,jdbcType=VARCHAR}
     where vc_id = #{vcId,jdbcType=VARCHAR}
   </update>
   <sql id="base_query">
     <trim prefix="WHERE" prefixOverrides="AND | OR">
       <if test="null != vcId">
-         and t.vc_id = #{vcId,jdbcType=VARCHAR}
+        and t.vc_id = #{vcId,jdbcType=VARCHAR}
       </if>
       <if test="null != vcVocabulary">
-         and t.vc_vocabulary = #{vcVocabulary,jdbcType=VARCHAR}
+        and t.vc_vocabulary LIKE  concat('%',#{vcVocabulary,jdbcType=VARCHAR},'%')
       </if>
       <if test="null != vcPhoneticUk">
-         and t.vc_phonetic_uk = #{vcPhoneticUk,jdbcType=VARCHAR}
+        and t.vc_phonetic_uk = #{vcPhoneticUk,jdbcType=VARCHAR}
       </if>
       <if test="null != vcPhoneticUs">
-         and t.vc_phonetic_us = #{vcPhoneticUs,jdbcType=VARCHAR}
+        and t.vc_phonetic_us = #{vcPhoneticUs,jdbcType=VARCHAR}
       </if>
       <if test="null != vcFrequency">
-         and t.vc_frequency = #{vcFrequency,jdbcType=REAL}
+        and t.vc_frequency = #{vcFrequency,jdbcType=REAL}
       </if>
       <if test="null != vcDifficulty">
-         and t.vc_difficulty = #{vcDifficulty,jdbcType=INTEGER}
+        and t.vc_difficulty = #{vcDifficulty,jdbcType=INTEGER}
       </if>
       <if test="null != vcAcknowledgeRate">
-         and t.vc_acknowledge_rate = #{vcAcknowledgeRate,jdbcType=REAL}
+        and t.vc_acknowledge_rate = #{vcAcknowledgeRate,jdbcType=REAL}
       </if>
       <if test="null != wordId">
-         and t.word_id = #{wordId,jdbcType=INTEGER}
+        and t.word_id = #{wordId,jdbcType=INTEGER}
+      </if>
+      <if test="null != audioUkUuid">
+        and t.audio_uk_uuid = #{audioUkUuid,jdbcType=VARCHAR}
+      </if>
+      <if test="null != audioUsUuid">
+        and t.audio_us_uuid = #{audioUsUuid,jdbcType=VARCHAR}
       </if>
     </trim>
   </sql>
@@ -194,13 +224,28 @@
       <if test="null != unitName">
         AND b.bv_tag = #{unitName,jdbcType=VARCHAR}
       </if>
-      <if test="null != unitName">
-        AND b.bv_tag = #{unitName,jdbcType=VARCHAR}
-      </if>
       <if test="null != word">
         AND t.vc_vocabulary LIKE  concat('%',#{word,jdbcType=VARCHAR},'%')
       </if>
     </if>
     ORDER BY b.bv_order
+  </select>
+
+
+
+  <select id="getWord" parameterType="com.video.bean.ViewWord" resultMap="views">
+
+    SELECT t.vc_id,
+    t.vc_vocabulary,
+    t.vc_phonetic_uk,
+    t.vc_phonetic_us,
+    d.v,
+    d.expre
+    FROM book_word t
+    LEFT JOIN book_word2w_relation c ON t.vc_vocabulary = c.a
+    LEFT JOIN book_word_expre d ON c.id = d.word_id
+    <if test="null != word">
+      WHERE t.vc_vocabulary = #{word,jdbcType=VARCHAR}
+    </if>
   </select>
 </mapper>

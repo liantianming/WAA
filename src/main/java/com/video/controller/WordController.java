@@ -28,6 +28,30 @@ public class WordController {
     @Autowired
     private BookWordService bookWordService;
 
+    @Autowired
+    private BookSentenceService bookSentenceService;
+
+
+    @RequestMapping(value="/getSentence.do",method = RequestMethod.POST)
+    @ResponseBody
+    public RResult<List<BaseBookSentenceBean>> getSentence(String wordId){
+        BaseBookSentenceBean bean = new BaseBookSentenceBean();
+        bean.setsWordId(wordId);
+        List<BaseBookSentenceBean> list = bookSentenceService.list(bean);
+        return RResult.success(list);
+    }
+    @RequestMapping(value="/getWord.do",method = RequestMethod.POST)
+    @ResponseBody
+    public RResult<List<List<Map<String, Object>>>> getWord(String word){
+        ViewWord bean = new ViewWord();
+        bean.setWord(word);
+        List<ViewWordDetail> beans = bookWordService.getWord(bean);
+        List<Map<String, Object>> muneTree = getMuneTree(beans);
+        List<List<Map<String, Object>>> beanList = new ArrayList<>();
+        beanList.add(muneTree);
+        return RResult.success(beanList);
+    }
+
     @RequestMapping(value="/wordList.do",method = RequestMethod.GET)
     public ModelAndView wordtList(ModelAndView model,String bkId,String unitName){
         model.addObject("bkId",bkId);
@@ -74,6 +98,7 @@ public class WordController {
             if (!idSet.contains(vcId)) {
                 idSet.add(vcId);
                 map.put("vcVocabulary", entity.getVcVocabulary());
+                map.put("vcId", entity.getVcId());
                 map.put("vcPhoneticUk", entity.getVcPhoneticUk());
                 map.put("vcPhoneticUs", entity.getVcPhoneticUs());
                 map.put("children", getChildren(data, entity.getVcId()));
@@ -178,6 +203,7 @@ public class WordController {
         model.setViewName("shopcar/index");
         return model;
     }
+
 
 
 }

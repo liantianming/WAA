@@ -290,6 +290,20 @@
       <artifactId>thymeleaf-spring4</artifactId>
       <version>3.0.9.RELEASE</version>
     </dependency>-->
+  <!--httpclient-->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.12</version>
+    </dependency>
+
+    <!--解析html-->
+      <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.10.2</version>
+      </dependency>
+
 
   </dependencies>
 
@@ -323,7 +337,7 @@
   </profiles>
 
   <build>
-    <finalName>WordAndAndroid</finalName>
+    <finalName>waa</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
