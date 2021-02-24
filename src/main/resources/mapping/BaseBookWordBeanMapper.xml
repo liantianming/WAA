@@ -221,8 +221,8 @@
     LEFT JOIN book_word_expre d ON c.id = d.word_id
     <if test="null != bkId">
       WHERE b.bv_book_id = #{bkId,jdbcType=VARCHAR}
-      <if test="null != unitName">
-        AND b.bv_tag = #{unitName,jdbcType=VARCHAR}
+      <if test="null != bvTagOrder">
+        AND b.bv_tag_order = #{bvTagOrder,jdbcType=INTEGER}
       </if>
       <if test="null != word">
         AND t.vc_vocabulary LIKE  concat('%',#{word,jdbcType=VARCHAR},'%')

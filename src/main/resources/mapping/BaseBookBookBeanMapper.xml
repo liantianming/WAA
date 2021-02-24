@@ -246,9 +246,17 @@
     select t.* from book_book t
     <include refid="base_query" />
   </select>
+<!--&lt;!&ndash;  <select id="list" parameterType="com.video.bean.BaseBookBookBean" resultMap="BaseResultMap">-->
+    <!--select t.* from book_book t-->
+    <!--<include refid="base_query" />-->
+  <!--</select>&ndash;&gt;-->
+
   <select id="list" parameterType="com.video.bean.BaseBookBookBean" resultMap="BaseResultMap">
-    select t.* from book_book t
-    <include refid="base_query" />
+    SELECT a.`bk_id`
+    FROM book_book a
+    LEFT JOIN `book_word_relation` b ON a.`bk_id` = b.`bv_book_id`
+    WHERE b.`bv_tag_order` IS NULL
+    GROUP BY a.`bk_id`
   </select>
   <select id="pageList" parameterType="com.video.bean.BaseBookBookBean" resultMap="BaseResultMap">
     select t.* from book_book t
@@ -265,6 +273,6 @@
         AND t.bk_name LIKE  concat('%',#{bookName,jdbcType=VARCHAR},'%')
       </if>
     </if>
-    ORDER BY t.`bk_parent_id`,t.`bk_name`, t.bk_order
+    ORDER BY t.bk_order
   </select>
 </mapper>

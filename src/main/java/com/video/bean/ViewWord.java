@@ -9,6 +9,15 @@ public class ViewWord implements Serializable {
     private String bkId;
     private String word;
     private String bookName;
+    private String bvTagOrder;
+
+    public String getBvTagOrder() {
+        return bvTagOrder;
+    }
+
+    public void setBvTagOrder(String bvTagOrder) {
+        this.bvTagOrder = bvTagOrder;
+    }
 
     public String getBookName() {
         return bookName;

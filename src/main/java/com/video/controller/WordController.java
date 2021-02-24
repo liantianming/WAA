@@ -53,9 +53,9 @@ public class WordController {
     }
 
     @RequestMapping(value="/wordList.do",method = RequestMethod.GET)
-    public ModelAndView wordtList(ModelAndView model,String bkId,String unitName){
+    public ModelAndView wordtList(ModelAndView model,String bkId,String bvTagOrder){
         model.addObject("bkId",bkId);
-        model.addObject("unitName",unitName);
+        model.addObject("bvTagOrder",bvTagOrder);
         model.setViewName("word/wordList");
         return model;
     }
@@ -67,15 +67,15 @@ public class WordController {
 
     @RequestMapping(value = "/wordList.do",method= RequestMethod.POST)
     @ResponseBody
-    public RResult<List<List<Map<String, Object>>>> wordList(String bkId,String unitName,String word)  {
+    public RResult<List<List<Map<String, Object>>>> wordList(String bkId,String bvTagOrder,String word)  {
         ViewWord view = new ViewWord();
         if("" != bkId){
             view.setBkId(bkId);
         }else{
             return RResult.error(CodeMsg.SUCCESS);
         }
-        if("" != unitName){
-            view.setUnitName(unitName);
+        if("" != bvTagOrder){
+            view.setBvTagOrder(bvTagOrder);
         }
         if("" != word){
             view.setWord(word);

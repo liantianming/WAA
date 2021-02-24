@@ -54,9 +54,9 @@
     <audio id="music" src="music/yinanping.flac" loop autoplay></audio>
     <div class="layui-row">
         <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-            <button class="layui-btn" onclick="audi()">播放</button>
+            <button class="layui-btn" onclick="audioAll()">播放</button>
 
-            <button class="layui-btn" onclick="audi()">折叠</button>
+            <button class="layui-btn" onclick="collapseShow()">折叠</button>
             <select >
                 <option value="0">英</option>
                 <option value="1">美</option>
@@ -68,8 +68,6 @@
         </div>
         <div class="layui-col-xs6 layui-col-sm9 layui-col-md9">
             <button type="button" onclick="getData()" class="layui-btn">确定</button>
-
-
         </div>
     </div>
 
@@ -77,12 +75,11 @@
 
     </div>
 </div>
-
-
 <div style="display: none">
+    <div id="audioBox"></div>
     <div class="audiopalyer"></div>
     <input name="bkId" value="${bkId}">
-    <input name="unitName" value="${unitName}">
+    <input name="bvTagOrder" value="${bvTagOrder}">
 </div>
 
 <script type="text/javascript" src="<%=path%>/easyui/jquery.min.js"></script>
@@ -92,25 +89,65 @@
     var row = $("#row");
 
     var words = new Array();
+    var arr = [];
     $(function () {
         getData();
     });
+    var myAudio = new Audio();
+    function audioAll() {
+        httpStr();
+        // myAudio.preload = true;
+        // myAudio.controls = true;
+        // myAudio.src = arr.shift();//每次读数组最后一个元素
+        myAudio.addEventListener('ended', playEndedHandler, false);
+        // myAudio.play();
+        // document.getElementById("audioBox").appendChild(myAudio);
+        // myAudio.loop = false;//禁止循环，否则无法触发ended事件
+        playEndedHandler();
+    }
 
-    function audi() {
+    function playEndedHandler(){
+        myAudio.src = arr.shift();
+        myAudio.play();
+        !arr.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定
+    }
+    function httpStr() {
+        var j=0;
         for (var i = 0;i < words.length; i++){
-            setTimeout(function(){
-
-            },(i + 1) * 3000);
-
-            audi1(words[i]);
+            arr[j++] = "http://dict.youdao.com/dictvoice?audio=" + words[i] + "&type=1";
+            arr[j++] = "http://dict.youdao.com/dictvoice?audio=" + words[i] + "&type=1";
+            arr[j++] = "http://dict.youdao.com/dictvoice?audio=" + words[i] + "&type=1";
         }
     }
 
-    function kk(i) {
+/*    function audiAll() {
+        for (var i = 0;i < words.length; i++){
 
+        }
+        var src = "http://dict.youdao.com/dictvoice?audio=" + words[0] + "&type=1";
+        $(".audiopalyer").html("");
+        var aud = $('<audio  src="' + src + '" autoplay hidden></audio>');
+        // $(".audiopalyer").html(aud);
+        $(aud).appendTo(".audiopalyer");
+        $(aud).appendTo(".audiopalyer");
+        $(aud).appendTo(".audiopalyer");
+        document.getElementById('player').play();
+    }*/
+
+    function collapseShow() {
+        var arr = document.getElementsByClassName("layui-colla-content");
+        var collShow = document.getElementsByClassName("layui-show");
+        if(collShow.length < 1){
+            for (var i = 0;i < arr.length; i++){
+                arr[i].classList.add("layui-show");
+            }
+        }else{
+            for (var i = 0;i < arr.length; i++){
+                arr[i].classList.remove("layui-show");
+            }
+        }
+        layui.element.init()
     }
-
-
     function audi1(wd) {
         var src = "http://dict.youdao.com/dictvoice?audio=" + wd + "&type=1";
         $(".audiopalyer").html("");
@@ -189,9 +226,9 @@
 
     function getData() {
         var bkId = $('input[name="bkId"]').val();
-        var unitName = $('input[name="unitName"]').val();
+        var bvTagOrder = $('input[name="bvTagOrder"]').val();
         var word = $('input[name="word"]').val();
-        var data = {bkId: bkId, unitName: unitName, word: word};
+        var data = {bkId: bkId, bvTagOrder: bvTagOrder, word: word};
         $.ajax({
             url: "./wordList.do",
             type: 'POST',

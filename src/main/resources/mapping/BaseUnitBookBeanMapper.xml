@@ -8,6 +8,7 @@
     <result column="bv_flag" jdbcType="VARCHAR" property="bvFlag" />
     <result column="bv_tag" jdbcType="VARCHAR" property="bvTag" />
     <result column="bv_order" jdbcType="INTEGER" property="bvOrder" />
+    <result column="bv_tag_order" jdbcType="INTEGER" property="bvTagOrder" />
   </resultMap>
   <sql id="Base_Column_List">
     bv_id, bv_book_id, bv_voc_id, bv_flag, bv_tag, bv_order
@@ -76,23 +77,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.video.bean.BaseUnitBookBeanBean">
     update book_word_relation
     <set>
-      <if test="bvBookId != null">
-        bv_book_id = #{bvBookId,jdbcType=VARCHAR},
-      </if>
-      <if test="bvVocId != null">
-        bv_voc_id = #{bvVocId,jdbcType=VARCHAR},
-      </if>
-      <if test="bvFlag != null">
-        bv_flag = #{bvFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="bvTag != null">
-        bv_tag = #{bvTag,jdbcType=VARCHAR},
-      </if>
-      <if test="bvOrder != null">
-        bv_order = #{bvOrder,jdbcType=INTEGER},
+
+      <if test="bvTagOrder != null">
+        bv_tag_order = #{bvTagOrder,jdbcType=INTEGER},
       </if>
     </set>
-    where bv_id = #{bvId,jdbcType=VARCHAR}
+    where bv_book_id = #{bvBookId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.video.bean.BaseUnitBookBeanBean">
     update book_word_relation
@@ -130,8 +120,9 @@
     <include refid="base_query" />
   </select>
   <select id="list" parameterType="com.video.bean.BaseUnitBookBeanBean" resultMap="BaseResultMap">
-    select t.* from book_word_relation t
+    select t.bv_tag from book_word_relation t
     <include refid="base_query" />
+    GROUP BY  t.bv_tag
   </select>
   <select id="pageList" parameterType="com.video.bean.BaseUnitBookBeanBean" resultMap="BaseResultMap">
     select t.* from book_word_relation t
@@ -140,7 +131,7 @@
 
   <select id="unitListBybkId" parameterType="com.video.bean.ViewWord" resultMap="BaseResultMap">
 
-    SELECT t.bv_tag
+    SELECT t.bv_tag_order,t.bv_tag
     FROM book_word_relation t
     <if test="null != bkId">
       WHERE t.bv_book_id = #{bkId,jdbcType=VARCHAR}
@@ -148,7 +139,7 @@
         AND t.bv_tag LIKE concat('%',#{unitName,jdbcType=VARCHAR},'%')
       </if>
     </if>
-    GROUP BY t.bv_tag
+    GROUP BY t.bv_tag_order,t.bv_tag
 
   </select>
 

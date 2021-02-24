@@ -13,10 +13,19 @@ public class BaseUnitBookBeanBean implements Serializable {
     private String bvFlag;
 
     private String bvTag;
+    private String bvTagOrder;
 
     private Integer bvOrder;
 
     private static final long serialVersionUID = 1L;
+
+    public String getBvTagOrder() {
+        return bvTagOrder;
+    }
+
+    public void setBvTagOrder(String bvTagOrder) {
+        this.bvTagOrder = bvTagOrder;
+    }
 
     public String getBvId() {
         return bvId;

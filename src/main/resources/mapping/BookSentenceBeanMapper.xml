@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.video.dao.BooksentenceDao">
+  <resultMap id="BaseResultMap" type="com.video.bean.BaseBookSentenceBean">
+    <id column="s_id" jdbcType="VARCHAR" property="sId" />
+    <result column="s_word_id" jdbcType="VARCHAR" property="sWordId" />
+    <result column="s_sentence" jdbcType="VARCHAR" property="sSentence" />
+    <result column="s_sentence_cn" jdbcType="VARCHAR" property="sSentenceCn" />
+    <result column="s_sentence_from" jdbcType="VARCHAR" property="sSentenceFrom" />
+    <result column="s_sentence_from" jdbcType="VARCHAR" property="sSentenceFrom" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_id, s_word_id, s_sentence, s_sentence_cn, s_sentence_from
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_sentence
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from book_sentence
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.video.bean.BaseBookSentenceBean">
+    insert into book_sentence (s_id, s_word_id, s_sentence, s_sentence_html,
+      s_sentence_cn, s_sentence_from)
+    values (#{sId,jdbcType=VARCHAR}, #{sWordId,jdbcType=VARCHAR}, #{sSentence,jdbcType=VARCHAR}, #{sSentenceHtml,jdbcType=VARCHAR},
+      #{sSentenceCn,jdbcType=VARCHAR}, #{sSentenceFrom,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.video.bean.BaseBookSentenceBean">
+    insert into book_sentence
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="sWordId != null">
+        s_word_id,
+      </if>
+      <if test="sSentence != null">
+        s_sentence,
+      </if>
+      <if test="sSentenceCn != null">
+        s_sentence_cn,
+      </if>
+      <if test="sSentenceFrom != null">
+        s_sentence_from,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sWordId != null">
+        #{sWordId,jdbcType=VARCHAR},
+      </if>
+      <if test="sSentence != null">
+        #{sSentence,jdbcType=VARCHAR},
+      </if>
+      <if test="sSentenceCn != null">
+        #{sSentenceCn,jdbcType=VARCHAR},
+      </if>
+      <if test="sSentenceFrom != null">
+        #{sSentenceFrom,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.video.bean.BaseBookSentenceBean">
+    update book_sentence
+    <set>
+      <if test="sWordId != null">
+        s_word_id = #{sWordId,jdbcType=VARCHAR},
+      </if>
+      <if test="sSentence != null">
+        s_sentence = #{sSentence,jdbcType=VARCHAR},
+      </if>
+      <if test="sSentenceCn != null">
+        s_sentence_cn = #{sSentenceCn,jdbcType=VARCHAR},
+      </if>
+      <if test="sSentenceFrom != null">
+        s_sentence_from = #{sSentenceFrom,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.video.bean.BaseBookSentenceBean">
+    update book_sentence
+    set s_word_id = #{sWordId,jdbcType=VARCHAR},
+      s_sentence = #{sSentence,jdbcType=VARCHAR},
+      s_sentence_cn = #{sSentenceCn,jdbcType=VARCHAR},
+      s_sentence_from = #{sSentenceFrom,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </update>
+  <sql id="base_query">
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      <if test="null != sId">
+         and t.s_id = #{sId,jdbcType=VARCHAR}
+      </if>
+      <if test="null != sWordId">
+         and t.s_word_id = #{sWordId,jdbcType=VARCHAR}
+      </if>
+      <if test="null != sSentence">
+         and t.s_sentence = #{sSentence,jdbcType=VARCHAR}
+      </if>
+      <if test="null != sSentenceCn">
+         and t.s_sentence_cn = #{sSentenceCn,jdbcType=VARCHAR}
+      </if>
+      <if test="null != sSentenceFrom">
+         and t.s_sentence_from = #{sSentenceFrom,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </sql>
+  <select id="find" parameterType="com.video.bean.BaseBookSentenceBean" resultMap="BaseResultMap">
+    select t.* from book_sentence t
+    <include refid="base_query" />
+  </select>
+  <select id="list" parameterType="com.video.bean.BaseBookSentenceBean" resultMap="BaseResultMap">
+    select t.* from book_sentence t
+    <include refid="base_query" />
+  </select>
+  <select id="pageList" parameterType="com.video.bean.BaseBookSentenceBean" resultMap="BaseResultMap">
+    select t.* from book_sentence t
+    <include refid="base_query" />
+  </select>
+</mapper>

@@ -87,7 +87,7 @@
             my_row = $('<div class="layui-row my-row"></div>');
             my_img = $('<img class="my-img" src="<%=path%>/commen/images/new-sprite.png">');
             my_text = $('<div class="layui-inline my-text" ></div>');
-            my_acol = $('<div class="my-acol" onclick="doWord(\''+rList[i].bvTag+'\')">'+rList[i].bvTag+'</div>');
+            my_acol = $('<div class="my-acol" onclick="doWord(\''+rList[i].bvTagOrder+'\')">'+rList[i].bvTag+'</div>');
             my_row.appendTo(row);
             my_img.appendTo(my_row);
             my_text.appendTo(my_row);
@@ -95,9 +95,9 @@
         }
     }
 
-    function doWord(bvTag) {
+    function doWord(bvTagOrder) {
         var bkId = $('input[name="bkId"]').val();
-        window.location.href="./wordList.do?bkId="+bkId+"&unitName="+bvTag;
+        window.location.href="./wordList.do?bkId="+bkId+"&bvTagOrder="+bvTagOrder;
     }
 
     function getData(){
