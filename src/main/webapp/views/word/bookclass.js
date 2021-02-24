@@ -6,20 +6,24 @@ $(function () {
 
 function initData(rList) {
     var row = $("#row");
+    var path = $("#path");
     var my_row;
     var my_img;
     var my_text;
     var my_acol;
     row.html("");
+    var j = 1;
     for (var i = 0; i < rList.length; i++) {
+        var my_src = path+"/commen/images/"+j+".png";
         my_row = $('<div class="layui-row my-row"></div>');
-        my_img = $('<img class="my-img" style="height: 70px;" src="<%=path%>/commen/images/new-sprite.png">');
+        my_img = $('<img class="my-img" style="height: 60px;width: 50px" src="'+my_src+'">');
         my_text = $('<div class="layui-inline my-text" ></div>');
         my_acol = $('<div class="my-acol" onclick="doBook(\'' + rList[i].schoolClassify + '\')">' + rList[i].schoolZh + '</div>');
         my_row.appendTo(row);
         my_img.appendTo(my_row);
         my_text.appendTo(my_row);
         my_acol.appendTo(my_text);
+        j++;
     }
 }
 function doBook(classify) {
@@ -153,12 +157,13 @@ function wordInitData(rList) {
 function sentenceInitData(list) {
 
     if(list.length > 0){
+        var j = 1;
         for (var i = 0; i < list.length; i++) {
             var sectenceDiv = $('#id'+list[i].sWordId+'');
 
             var div1 = $('<div class="nv" style="margin-top: 10px;"></div>');
             var ul = $('<ul></ul>');
-            var li1 = $('<li style="margin-bottom: 8px;">'+list[i].sSentence+'</li>');
+            var li1 = $('<li style="margin-bottom: 8px;">'+j+".&nbsp;&nbsp;"+list[i].sSentence+'</li>');
             var li3 = $('<li>'+list[i].sSentenceCn+'</li>');
             var li4 = $('<li style="color: #9F9F9F;">'+list[i].sSentenceFrom+'</li>');
             div1.appendTo(sectenceDiv);
@@ -166,6 +171,7 @@ function sentenceInitData(list) {
             li1.appendTo(ul);
             li3.appendTo(ul);
             li4.appendTo(ul);
+            j++;
         }
     }
 }

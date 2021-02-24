@@ -29,12 +29,6 @@
             margin-top: 10px;
         }
 
-        .sp {
-            background: url("<%=path%>/commen/images/new-sprite.png") no-repeat;
-            vertical-align: middle;
-            overflow: hidden;
-            display: inline-block
-        }
         .dictvoice {
             vertical-align: middle;
             margin: 10px;
@@ -85,11 +79,9 @@
         row.html("");
         for (var i = 0;i<rList.length;i++){
             my_row = $('<div class="layui-row my-row"></div>');
-            my_img = $('<img class="my-img" src="<%=path%>/commen/images/new-sprite.png">');
             my_text = $('<div class="layui-inline my-text" ></div>');
-            my_acol = $('<div class="my-acol" onclick="doWord(\''+rList[i].bvTagOrder+'\')">'+rList[i].bvTag+'</div>');
+            my_acol = $('<div class="my-acol" style="line-height: 30px;" onclick="doWord(\''+rList[i].bvTagOrder+'\')">'+rList[i].bvTag+'</div>');
             my_row.appendTo(row);
-            my_img.appendTo(my_row);
             my_text.appendTo(my_row);
             my_acol.appendTo(my_text);
         }

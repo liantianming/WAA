@@ -12,11 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=path%>/layui-v2.5.6/layui/css/layui.css"  media="all">
     <style type="text/css">
-        .my-img{
-            width: 80px;
-            background: url("<%=path%>/commen/images/new-sprite.png");
-            text-align: center;
-        }
+
         .my-row{
             background-color: #f2f2f2;
             margin-top: 4px;
@@ -91,7 +87,7 @@
         row.html("");
         for (var i = 0;i<rList.length;i++){
             my_row = $('<div class="layui-row my-row"></div>');
-            my_img = $('<img class="my-img" src="<%=path%>/commen/images/new-sprite.png">');
+            my_img = $('<img class="my-img" onclick="doColl(\''+rList[i].bkId+'\',this)" src="<%=path%>/commen/images/fav_icon1.png">');
             my_text = $('<div class="layui-inline my-text" ></div>');
             my_acol = $('<div class="my-acol" onclick="doUnit(\''+rList[i].bkId+'\')">'+rList[i].bkName+'</div>');
             my_row.appendTo(row);
@@ -99,6 +95,10 @@
             my_text.appendTo(my_row);
             my_acol.appendTo(my_text);
         }
+    }
+
+    function doColl(bkId,th){
+        th.src = "<%=path%>/commen/images/fav_icon2.png"
     }
 
     function doUnit(bkId) {

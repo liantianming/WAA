@@ -16,11 +16,7 @@
     <link rel="stylesheet" media="all" href="<%=path%>/layui-v2.5.6/layui/css/layui.css">
     <script type="text/javascript" charset="utf-8" src="<%=path%>/views/word/bookclass.js"></script>
     <style type="text/css">
-        .my-img{
-            width: 80px;
-            background: url("<%=path%>/commen/images/new-sprite.png");
-            text-align: center;
-        }
+
         .my-row{
             background-color: #f2f2f2;
             margin-top: 4px;
@@ -68,10 +64,10 @@
         </div>
     </div>
     <div class="layui-row layui-collapse" id="row"></div>
-
     <div style="display: none;">
         <input id="wordId" name="wordId">
         <div class="audiopalyer"></div>
+        <input name="path" id="path" value="<%=path%>"></input>
     </div>
 
 </div>
